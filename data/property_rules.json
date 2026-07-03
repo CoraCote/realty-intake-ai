@@ -1,0 +1,36 @@
+[
+  {
+    "address": "123 Oak Street, Unit 2B, Austin, TX 78701",
+    "type": "rental",
+    "rent": 2200,
+    "deposit": 2200,
+    "available_date": "2026-08-01",
+    "pet_policy": "Cats and small dogs under 30 lbs allowed with $300 non-refundable pet deposit",
+    "min_income_multiplier": 3,
+    "showing_link": "https://calendly.com/austin-skyline-realty/showing"
+  },
+  {
+    "address": "456 Maple Avenue, Austin, TX 78702",
+    "type": "rental",
+    "rent": 1800,
+    "deposit": 1800,
+    "available_date": "2026-07-15",
+    "pet_policy": "No pets",
+    "min_income_multiplier": 3,
+    "showing_link": "https://calendly.com/austin-skyline-realty/showing"
+  },
+  {
+    "address": "789 Birchwood Lane, Austin, TX 78704",
+    "type": "sale",
+    "listing_price": 615000,
+    "min_acceptable_offer_pct": 0.95,
+    "listing_agent": "Dana Whitfield"
+  },
+  {
+    "address": "22 Sunset Ridge Court, Austin, TX 78745",
+    "type": "sale",
+    "listing_price": 449000,
+    "min_acceptable_offer_pct": 0.97,
+    "listing_agent": "Dana Whitfield"
+  }
+]

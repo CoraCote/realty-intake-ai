@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="stat-row">
+  <div class="stat"><div class="n">{{ rows|length }}</div><div class="l">Total processed</div></div>
+  <div class="stat"><div class="n">{{ counts.draft_reply }}</div><div class="l">Replies drafted</div></div>
+  <div class="stat"><div class="n">{{ counts.flag_for_review }}</div><div class="l">Flagged for review</div></div>
+  <div class="stat"><div class="n">{{ counts.sync_line_items }}</div><div class="l">Synced to accounting</div></div>
+</div>
+
+{% if rows %}
+<table>
+  <thead>
+    <tr>
+      <th>Received</th>
+      <th>Sender</th>
+      <th>Type</th>
+      <th>Property</th>
+      <th>Confidence</th>
+      <th>Action</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td>{{ r.received_at[:16] if r.received_at else "—" }}</td>
+      <td>{{ r.sender_name or "—" }}<br><span class="conf">{{ r.sender_email or "" }}</span></td>
+      <td><span class="type-pill">{{ r.request_type.replace("_", " ") }}</span></td>
+      <td>{{ r.property_address or "—" }}</td>
+      <td><span class="conf">{{ "%.0f"|format(r.confidence * 100) }}%</span></td>
+      <td><span class="badge {{ r.status_class }}">{{ r.status_label }}</span></td>
+      <td><a href="/intake/{{ r.id }}">View →</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="panel empty">
+  No records yet. Click <strong>Process Inbox</strong> to run the extraction pipeline over the sample inbox.
+</div>
+{% endif %}
+{% endblock %}

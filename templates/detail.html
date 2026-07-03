@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<a class="backlink" href="/">← Back to inbox</a>
+
+<div class="panel">
+  <h2>Summary</h2>
+  <p><strong>{{ row.subject }}</strong></p>
+  <p>{{ row.summary }}</p>
+  <p>
+    <span class="type-pill">{{ row.request_type.replace("_", " ") }}</span>
+    &nbsp;·&nbsp; <span class="conf">confidence {{ "%.0f"|format(row.confidence * 100) }}%</span>
+    &nbsp;·&nbsp; <span class="badge {{ row.status_class }}">{{ row.status_label }}</span>
+  </p>
+</div>
+
+<div class="grid-2">
+  <div class="panel">
+    <h2>Raw email (source)</h2>
+    <pre>{{ row.raw_email_text }}</pre>
+  </div>
+  <div class="panel">
+    <h2>Extracted structured data</h2>
+    <pre>{{ row.extraction_json }}</pre>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Action taken</h2>
+  {% if row.action_type == "flag_for_review" %}
+    <p><span class="badge warn">Flagged for human review</span></p>
+    <ul class="flags">
+      {% for f in row.flags %}<li>{{ f }}</li>{% endfor %}
+    </ul>
+  {% elif row.action_type == "sync_line_items" %}
+    <p><span class="badge info">{{ row.action_subject }}</span></p>
+    <p>{{ row.action_body }}</p>
+    {% if row.flags %}<ul class="flags">{% for f in row.flags %}<li>{{ f }}</li>{% endfor %}</ul>{% endif %}
+  {% else %}
+    <p><span class="badge ok">Auto-drafted reply</span></p>
+    <p><strong>Subject:</strong> {{ row.action_subject }}</p>
+    <pre>{{ row.action_body }}</pre>
+  {% endif %}
+</div>
+{% endblock %}
